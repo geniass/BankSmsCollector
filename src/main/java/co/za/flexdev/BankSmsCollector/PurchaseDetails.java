@@ -1,3 +1,4 @@
+
 package co.za.flexdev.BankSmsCollector;
 
 import java.math.BigDecimal;
@@ -6,27 +7,38 @@ import java.util.Date;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName="purchase_details")
+@DatabaseTable(tableName = "purchase_details")
 public class PurchaseDetails {
-    
-    @DatabaseField(generatedId=true)
-    int id;
-    
+
     @DatabaseField
     Date date;
-    
+
     @DatabaseField
     BigDecimal amount;
-    
+
     @DatabaseField
     String seller;
-    
-    public int getId() {
-        return id;
+
+    @DatabaseField
+    String currency;
+
+    @DatabaseField(id = true)
+    long timestamp;
+
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public Date getDate() {
@@ -53,15 +65,17 @@ public class PurchaseDetails {
         this.seller = seller;
     }
 
-    public PurchaseDetails(int id, Date date, BigDecimal bigDecimal, String seller) {
-        this.id = id;
+    public PurchaseDetails(Date date, BigDecimal bigDecimal, String seller, String currency,
+            long timestamp) {
         this.date = date;
         this.amount = bigDecimal;
         this.seller = seller;
+        this.currency = currency;
+        this.timestamp = timestamp;
     }
 
-    public PurchaseDetails(){
-        
+    public PurchaseDetails() {
+
     }
 
 }

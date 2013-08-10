@@ -1,3 +1,4 @@
+
 package co.za.flexdev.BankSmsCollector;
 
 import java.sql.SQLException;
@@ -7,18 +8,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
-
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 public class SmsSQLiteHelper extends OrmLiteSqliteOpenHelper {
-    
+
     private static final String DATABASE_NAME = "bank-sms.db";
-    private static final int DATABASE_VERSION = 1;
-    
-    private Dao<PurchaseDetails, Integer> purchaseDetailsDao;
+    private static final int DATABASE_VERSION = 3;
+
+    private Dao<PurchaseDetails, Long> purchaseDetailsDao;
 
     public SmsSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -28,7 +28,7 @@ public class SmsSQLiteHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             TableUtils
-            .createTable(connectionSource, PurchaseDetails.class);
+                    .createTable(connectionSource, PurchaseDetails.class);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -53,8 +53,8 @@ public class SmsSQLiteHelper extends OrmLiteSqliteOpenHelper {
 
         onCreate(database);
     }
-    
-    public Dao<PurchaseDetails, Integer> getPurchaseDetailsDao() {
+
+    public Dao<PurchaseDetails, Long> getPurchaseDetailsDao() {
         if (purchaseDetailsDao == null) {
             try {
                 purchaseDetailsDao = getDao(PurchaseDetails.class);

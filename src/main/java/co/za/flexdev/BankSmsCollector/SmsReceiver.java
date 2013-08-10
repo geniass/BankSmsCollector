@@ -17,21 +17,20 @@ public class SmsReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Bundle pudsBundle = intent.getExtras();
         Object[] pdus = (Object[]) pudsBundle.get("pdus");
-        ArrayList<String> messages = new ArrayList<String>();
+        ArrayList<SmsParcelable> messages = new ArrayList<SmsParcelable>();
         for (Object pdu : pdus) {
             SmsMessage message = SmsMessage.createFromPdu((byte[]) pdu);
             String messageBody = message.getDisplayMessageBody();
-            Toast.makeText(context, messageBody, Toast.LENGTH_LONG).show();
 
-            // TODO: BAD!! make more general with parser etc
-            if (messageBody.contains("Purchase authorised") && messageBody.contains("Investec")) {
-                messages.add(messageBody);
+            if (SmsParser.isValidSms(messageBody)) {
+                messages.add(new SmsParcelable(messageBody, message.getTimestampMillis()));
+                Toast.makeText(context, messageBody, Toast.LENGTH_LONG).show();
             }
         }
 
         if (!messages.isEmpty()) {
             Intent serviceIntent = new Intent(context, SmsParserService.class);
-            serviceIntent.putStringArrayListExtra("messages", messages);
+            serviceIntent.putParcelableArrayListExtra("messages", messages);
             context.startService(serviceIntent);
         }
     }
