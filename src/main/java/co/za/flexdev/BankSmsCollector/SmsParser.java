@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 import org.joda.money.Money;
 
 import android.util.Log;
-import android.widget.Toast;
 
 public class SmsParser {
 

@@ -40,7 +40,7 @@ public class SmsParserService extends IntentService {
                 e.printStackTrace();
             }
         }
-        
+
         sendMessage();
     }
 
@@ -60,10 +60,10 @@ public class SmsParserService extends IntentService {
         }
         return databaseHelper;
     }
-    
+
     private void sendMessage() {
         Log.d("sender", "Broadcasting message");
         Intent intent = new Intent("sms-service-finished");
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-      }
+    }
 }

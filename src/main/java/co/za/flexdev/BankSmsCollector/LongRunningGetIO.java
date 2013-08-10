@@ -22,11 +22,11 @@ import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.json.JSONObject;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 /*
  * Compares the currencies. If they differ the money is converted to the
@@ -133,9 +133,10 @@ class LongRunningGetIO extends AsyncTask<PurchaseDetails, Void, ArrayList<Money>
             if (today.get(Calendar.YEAR) == cal.get(Calendar.YEAR)
                     && today.get(Calendar.MONTH) == cal.get(Calendar.MONTH)) {
                 monthly_total = monthly_total.plus(money);
+                Log.d("Monthly", purchase.getSeller() + money.toString());
             }
         }
-        
+
         if (helper != null) {
             OpenHelperManager.releaseHelper();
             helper = null;
@@ -151,7 +152,7 @@ class LongRunningGetIO extends AsyncTask<PurchaseDetails, Void, ArrayList<Money>
         if (results != null) {
             Log.d("Results", results.get(0).toString());
             Log.d("Results", results.get(1).toString());
-            
+
             listener.onPurchasesLoaded(results);
         }
     }

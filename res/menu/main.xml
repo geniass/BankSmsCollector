@@ -1,10 +1,13 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:BankSmsCollector="http://schemas.android.com/apk/res-auto" >
 
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
-    <item android:id="@+id/refresh_messages_menuitem" android:title="Refresh SMSs" android:orderInCategory="10"></item>
+    <item android:id="@+id/refresh_messages_menuitem" android:title="Refresh SMSs" 
+        android:showAsAction="always" 
+        android:orderInCategory="10" android:icon="@drawable/navigation_refresh"></item>
 
 </menu>
