@@ -24,7 +24,7 @@ public class SmsParser {
     static Pattern datePattern = Pattern.compile(DATE_PATTERN);
     static Pattern amountPattern = Pattern.compile(AMOUNT_PATTERN);
     static Pattern sellerPattern = Pattern.compile(SELLER_PATTERN);
-    static Pattern randReplacePattern = Pattern.compile("^R");
+    static Pattern currencyPattern = Pattern.compile("(^[A-Z]+)(\\d+.\\d+)");
 
     static Matcher matcher;
 
@@ -59,8 +59,15 @@ public class SmsParser {
         while (matcher.find()) {
             // TODO: instead of replacing 'R', maybe make a patch for joda
             // to parse the symbol
-            amount = Money.parse(matcher.group().replaceAll("^R", "ZAR ")
-                    .replaceAll("^USD", "USD "));
+            //TODO: hacky regex's because joda fails if there's no space 
+            // between currency and value
+            String group = matcher.group().replaceAll("^R", "ZAR ");
+            Matcher q = currencyPattern.matcher(group);
+            if(q.matches()){
+                group = group.replaceAll("(^[A-Z]+)", "$1 ");
+            }
+                    
+            amount = Money.parse(group);
             Log.d(TAG, amount.toString());
         }
 

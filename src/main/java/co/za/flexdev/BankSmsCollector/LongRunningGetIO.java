@@ -83,7 +83,7 @@ class LongRunningGetIO extends AsyncTask<PurchaseDetails, Void, ArrayList<Money>
             BigDecimal conversionRate = (BigDecimal.valueOf(rates.getDouble(toCurrencyCode))
                     .setScale(4, RoundingMode.HALF_UP))
                     .divide((BigDecimal.valueOf(rates.getDouble(fromCurrencyCode)).setScale(4,
-                            RoundingMode.HALF_UP)));
+                            RoundingMode.HALF_UP)), RoundingMode.HALF_UP);
             Log.d("ConversionRate", conversionRate.toPlainString());
 
             return conversionRate;

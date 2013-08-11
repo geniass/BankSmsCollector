@@ -64,7 +64,7 @@
 					</sdk>
 					<dex>
 						<preDex>true</preDex>
-						<preDexLibLocation>~/.m2/predexedLibs</preDexLibLocation>
+						<preDexLibLocation>/home/ari/.m2/predexedLibs</preDexLibLocation>
 					</dex>
 				</configuration>
 			</plugin>
